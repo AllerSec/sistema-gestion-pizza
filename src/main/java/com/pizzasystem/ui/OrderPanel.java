@@ -8,7 +8,10 @@ import com.pizzasystem.models.Pizza;
 import com.pizzasystem.models.User;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +43,9 @@ public class OrderPanel extends JPanel {
         // Inicializar pizzas disponibles (en una app real, se cargarían de la BD)
         initializePizzas();
 
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10));
+        setBorder(new EmptyBorder(10, 10, 10, 10));
+        setBackground(new Color(240, 240, 240));
 
         // Panel superior con información del usuario
         JPanel userPanel = createUserPanel();
@@ -48,7 +53,9 @@ public class OrderPanel extends JPanel {
 
         // Panel central dividido en 2 partes: disponibles y carrito
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitPane.setResizeWeight(0.5);
+        splitPane.setResizeWeight(0.6);
+        splitPane.setBorder(null);
+        splitPane.setDividerSize(8);
 
         // Panel izquierdo: Pizzas disponibles
         JPanel availablePanel = createAvailablePanel();
@@ -68,6 +75,7 @@ public class OrderPanel extends JPanel {
     private void initializePizzas() {
         availablePizzas = new ArrayList<>();
 
+        // Pizzas Margarita
         availablePizzas.add(new Pizza(1L, "Margarita", "Pequeña",
                 Arrays.asList("Queso", "Tomate", "Albahaca"), 8.99));
         availablePizzas.add(new Pizza(2L, "Margarita", "Mediana",
@@ -75,6 +83,7 @@ public class OrderPanel extends JPanel {
         availablePizzas.add(new Pizza(3L, "Margarita", "Grande",
                 Arrays.asList("Queso", "Tomate", "Albahaca"), 12.99));
 
+        // Pizzas Pepperoni
         availablePizzas.add(new Pizza(4L, "Pepperoni", "Pequeña",
                 Arrays.asList("Pepperoni", "Queso", "Tomate"), 9.99));
         availablePizzas.add(new Pizza(5L, "Pepperoni", "Mediana",
@@ -82,17 +91,27 @@ public class OrderPanel extends JPanel {
         availablePizzas.add(new Pizza(6L, "Pepperoni", "Grande",
                 Arrays.asList("Pepperoni", "Queso", "Tomate"), 14.99));
 
+        // Pizzas Vegetarianas
         availablePizzas.add(new Pizza(7L, "Vegetariana", "Pequeña",
                 Arrays.asList("Pimiento", "Cebolla", "Champiñones", "Queso", "Tomate"), 9.49));
         availablePizzas.add(new Pizza(8L, "Vegetariana", "Mediana",
                 Arrays.asList("Pimiento", "Cebolla", "Champiñones", "Queso", "Tomate"), 11.49));
         availablePizzas.add(new Pizza(9L, "Vegetariana", "Grande",
                 Arrays.asList("Pimiento", "Cebolla", "Champiñones", "Queso", "Tomate"), 13.49));
+
+        // Pizzas Hawaiana
+        availablePizzas.add(new Pizza(10L, "Hawaiana", "Pequeña",
+                Arrays.asList("Jamón", "Piña", "Queso", "Tomate"), 10.49));
+        availablePizzas.add(new Pizza(11L, "Hawaiana", "Mediana",
+                Arrays.asList("Jamón", "Piña", "Queso", "Tomate"), 12.49));
+        availablePizzas.add(new Pizza(12L, "Hawaiana", "Grande",
+                Arrays.asList("Jamón", "Piña", "Queso", "Tomate"), 14.49));
     }
 
     private JPanel createUserPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBackground(new Color(70, 130, 180));
+        panel.setBorder(new EmptyBorder(10, 15, 10, 15));
 
         String username = "Usuario";
         Optional<User> userOpt = authenticator.getCurrentUser();
@@ -102,9 +121,13 @@ public class OrderPanel extends JPanel {
 
         JLabel welcomeLabel = new JLabel("Bienvenido, " + username);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        welcomeLabel.setForeground(Color.WHITE);
         panel.add(welcomeLabel, BorderLayout.WEST);
 
         JButton logoutButton = new JButton("Cerrar Sesión");
+        logoutButton.setBackground(new Color(211, 84, 0));
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 12));
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -121,8 +144,19 @@ public class OrderPanel extends JPanel {
     }
 
     private JPanel createAvailablePanel() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createTitledBorder("Pizzas Disponibles"));
+        JPanel panel = new JPanel(new BorderLayout(0, 10));
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                new EmptyBorder(5, 5, 5, 5),
+                BorderFactory.createTitledBorder(
+                        BorderFactory.createLineBorder(new Color(70, 130, 180), 2),
+                        "Menú de Pizzas",
+                        TitledBorder.LEFT,
+                        TitledBorder.TOP,
+                        new Font("Arial", Font.BOLD, 14),
+                        new Color(70, 130, 180)
+                )
+        ));
+        panel.setBackground(new Color(240, 240, 240));
 
         // Crear modelo de tabla
         String[] columns = {"Nombre", "Tamaño", "Ingredientes", "Precio"};
@@ -146,11 +180,25 @@ public class OrderPanel extends JPanel {
 
         pizzaTable = new JTable(pizzaTableModel);
         pizzaTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        pizzaTable.setRowHeight(25);
+        pizzaTable.setFont(new Font("Arial", Font.PLAIN, 12));
+        pizzaTable.setShowGrid(true);
+        pizzaTable.setGridColor(new Color(220, 220, 220));
+
+        JTableHeader header = pizzaTable.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 12));
+        header.setBackground(new Color(70, 130, 180));
+        header.setForeground(Color.WHITE);
 
         JScrollPane scrollPane = new JScrollPane(pizzaTable);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         panel.add(scrollPane, BorderLayout.CENTER);
 
         JButton addButton = new JButton("Añadir al Carrito");
+        addButton.setBackground(new Color(46, 204, 113));
+        addButton.setForeground(Color.WHITE);
+        addButton.setFont(new Font("Arial", Font.BOLD, 14));
+        addButton.setPreferredSize(new Dimension(150, 40));
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -159,17 +207,37 @@ public class OrderPanel extends JPanel {
                     Pizza selectedPizza = availablePizzas.get(selectedRow);
                     cartPizzas.add(selectedPizza);
                     updateCartTable();
+                } else {
+                    JOptionPane.showMessageDialog(OrderPanel.this,
+                            "Por favor, seleccione una pizza del menú",
+                            "Selección requerida",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
 
-        panel.add(addButton, BorderLayout.SOUTH);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(new Color(240, 240, 240));
+        buttonPanel.add(addButton);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
         return panel;
     }
 
     private JPanel createCartPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createTitledBorder("Carrito"));
+        JPanel panel = new JPanel(new BorderLayout(0, 10));
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                new EmptyBorder(5, 5, 5, 5),
+                BorderFactory.createTitledBorder(
+                        BorderFactory.createLineBorder(new Color(211, 84, 0), 2),
+                        "Tu Pedido",
+                        TitledBorder.LEFT,
+                        TitledBorder.TOP,
+                        new Font("Arial", Font.BOLD, 14),
+                        new Color(211, 84, 0)
+                )
+        ));
+        panel.setBackground(new Color(240, 240, 240));
 
         // Crear modelo de tabla
         String[] columns = {"Nombre", "Tamaño", "Precio"};
@@ -182,17 +250,35 @@ public class OrderPanel extends JPanel {
 
         cartTable = new JTable(cartTableModel);
         cartTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        cartTable.setRowHeight(25);
+        cartTable.setFont(new Font("Arial", Font.PLAIN, 12));
+        cartTable.setShowGrid(true);
+        cartTable.setGridColor(new Color(220, 220, 220));
+
+        JTableHeader header = cartTable.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 12));
+        header.setBackground(new Color(211, 84, 0));
+        header.setForeground(Color.WHITE);
+
+        header.setForeground(Color.WHITE);
 
         JScrollPane scrollPane = new JScrollPane(cartTable);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        JPanel southPanel = new JPanel(new BorderLayout());
+        JPanel southPanel = new JPanel(new BorderLayout(10, 0));
+        southPanel.setBackground(new Color(240, 240, 240));
+        southPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         totalLabel = new JLabel("Total: 0.00 €");
-        totalLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        totalLabel.setForeground(new Color(211, 84, 0));
         southPanel.add(totalLabel, BorderLayout.WEST);
 
         JButton removeButton = new JButton("Quitar");
+        removeButton.setBackground(new Color(231, 76, 60));
+        removeButton.setForeground(Color.WHITE);
+        removeButton.setFont(new Font("Arial", Font.BOLD, 12));
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -200,6 +286,11 @@ public class OrderPanel extends JPanel {
                 if (selectedRow >= 0 && selectedRow < cartPizzas.size()) {
                     cartPizzas.remove(selectedRow);
                     updateCartTable();
+                } else if (cartPizzas.size() > 0) {
+                    JOptionPane.showMessageDialog(OrderPanel.this,
+                            "Por favor, seleccione una pizza para quitar",
+                            "Selección requerida",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -210,18 +301,42 @@ public class OrderPanel extends JPanel {
     }
 
     private JPanel createActionPanel() {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 10));
+        panel.setBackground(new Color(240, 240, 240));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JButton clearButton = new JButton("Vaciar Carrito");
+        clearButton.setBackground(new Color(231, 76, 60));
+        clearButton.setForeground(Color.WHITE);
+        clearButton.setFont(new Font("Arial", Font.BOLD, 14));
+        clearButton.setPreferredSize(new Dimension(150, 40));
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cartPizzas.clear();
-                updateCartTable();
+                if (cartPizzas.size() > 0) {
+                    int option = JOptionPane.showConfirmDialog(OrderPanel.this,
+                            "¿Está seguro de que desea vaciar el carrito?",
+                            "Confirmar acción",
+                            JOptionPane.YES_NO_OPTION);
+
+                    if (option == JOptionPane.YES_OPTION) {
+                        cartPizzas.clear();
+                        updateCartTable();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(OrderPanel.this,
+                            "El carrito ya está vacío",
+                            "Información",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
 
         JButton checkoutButton = new JButton("Realizar Pedido");
+        checkoutButton.setBackground(new Color(46, 204, 113));
+        checkoutButton.setForeground(Color.WHITE);
+        checkoutButton.setFont(new Font("Arial", Font.BOLD, 14));
+        checkoutButton.setPreferredSize(new Dimension(150, 40));
         checkoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
