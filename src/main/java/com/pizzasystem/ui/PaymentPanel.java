@@ -90,6 +90,7 @@ public class PaymentPanel extends JPanel {
         confirmButton.setForeground(Color.WHITE);
         confirmButton.setFont(new Font("Arial", Font.BOLD, 14));
         confirmButton.setPreferredSize(new Dimension(180, 40));
+        confirmButton.setBorder(BorderFactory.createRaisedBevelBorder());
         confirmButton.addActionListener(e -> processPayment());
 
         JButton cancelButton = new JButton("Cancelar");
@@ -97,6 +98,7 @@ public class PaymentPanel extends JPanel {
         cancelButton.setForeground(Color.WHITE);
         cancelButton.setFont(new Font("Arial", Font.BOLD, 14));
         cancelButton.setPreferredSize(new Dimension(180, 40));
+        cancelButton.setBorder(BorderFactory.createRaisedBevelBorder());
         cancelButton.addActionListener(e -> mainFrame.showOrderPanel());
 
         buttonPanel.add(confirmButton);
@@ -347,3 +349,4 @@ public class PaymentPanel extends JPanel {
         return cardNumber;
     }
 }
+

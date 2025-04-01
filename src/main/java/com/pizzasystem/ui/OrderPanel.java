@@ -121,13 +121,13 @@ public class OrderPanel extends JPanel {
 
         JLabel welcomeLabel = new JLabel("Bienvenido, " + username);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        welcomeLabel.setForeground(Color.WHITE);
+        welcomeLabel.setForeground(Color.DARK_GRAY);
         panel.add(welcomeLabel, BorderLayout.WEST);
 
         JButton logoutButton = new JButton("Cerrar Sesión");
-        logoutButton.setBackground(new Color(211, 84, 0));
-        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setForeground(Color.DARK_GRAY);
         logoutButton.setFont(new Font("Arial", Font.BOLD, 12));
+        logoutButton.setBorder(BorderFactory.createRaisedBevelBorder());
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -188,7 +188,7 @@ public class OrderPanel extends JPanel {
         JTableHeader header = pizzaTable.getTableHeader();
         header.setFont(new Font("Arial", Font.BOLD, 12));
         header.setBackground(new Color(70, 130, 180));
-        header.setForeground(Color.WHITE);
+        header.setForeground(Color.DARK_GRAY);
 
         JScrollPane scrollPane = new JScrollPane(pizzaTable);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -196,9 +196,10 @@ public class OrderPanel extends JPanel {
 
         JButton addButton = new JButton("Añadir al Carrito");
         addButton.setBackground(new Color(46, 204, 113));
-        addButton.setForeground(Color.WHITE);
+        addButton.setForeground(Color.DARK_GRAY);
         addButton.setFont(new Font("Arial", Font.BOLD, 14));
         addButton.setPreferredSize(new Dimension(150, 40));
+        addButton.setBorder(BorderFactory.createRaisedBevelBorder());
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -258,9 +259,7 @@ public class OrderPanel extends JPanel {
         JTableHeader header = cartTable.getTableHeader();
         header.setFont(new Font("Arial", Font.BOLD, 12));
         header.setBackground(new Color(211, 84, 0));
-        header.setForeground(Color.WHITE);
-
-        header.setForeground(Color.WHITE);
+        header.setForeground(Color.DARK_GRAY);
 
         JScrollPane scrollPane = new JScrollPane(cartTable);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -279,6 +278,7 @@ public class OrderPanel extends JPanel {
         removeButton.setBackground(new Color(231, 76, 60));
         removeButton.setForeground(Color.WHITE);
         removeButton.setFont(new Font("Arial", Font.BOLD, 12));
+        removeButton.setBorder(BorderFactory.createRaisedBevelBorder());
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -307,9 +307,10 @@ public class OrderPanel extends JPanel {
 
         JButton clearButton = new JButton("Vaciar Carrito");
         clearButton.setBackground(new Color(231, 76, 60));
-        clearButton.setForeground(Color.WHITE);
+        clearButton.setForeground(Color.DARK_GRAY);
         clearButton.setFont(new Font("Arial", Font.BOLD, 14));
         clearButton.setPreferredSize(new Dimension(150, 40));
+        clearButton.setBorder(BorderFactory.createRaisedBevelBorder());
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -334,9 +335,10 @@ public class OrderPanel extends JPanel {
 
         JButton checkoutButton = new JButton("Realizar Pedido");
         checkoutButton.setBackground(new Color(46, 204, 113));
-        checkoutButton.setForeground(Color.WHITE);
+        checkoutButton.setForeground(Color.DARK_GRAY);
         checkoutButton.setFont(new Font("Arial", Font.BOLD, 14));
         checkoutButton.setPreferredSize(new Dimension(150, 40));
+        checkoutButton.setBorder(BorderFactory.createRaisedBevelBorder());
         checkoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -409,7 +411,7 @@ public class OrderPanel extends JPanel {
     }
 
     public void refreshData() {
-        // Método para actualizar datos cuando se muestra el panel
+        // Metodo para actualizar datos cuando se muestra el panel
         Optional<User> userOpt = authenticator.getCurrentUser();
         if (!userOpt.isPresent()) {
             mainFrame.showLoginPanel();

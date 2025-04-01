@@ -86,14 +86,16 @@ public class LoginPanel extends JPanel {
         loginButton = new JButton("Iniciar Sesión");
         loginButton.setPreferredSize(new Dimension(150, 40));
         loginButton.setBackground(new Color(70, 130, 180));
-        loginButton.setForeground(Color.WHITE);
+        loginButton.setForeground(Color.DARK_GRAY);
         loginButton.setFont(new Font("Arial", Font.BOLD, 14));
+        loginButton.setBorder(BorderFactory.createRaisedBevelBorder());
 
         registerButton = new JButton("Registrarse");
         registerButton.setPreferredSize(new Dimension(150, 40));
         registerButton.setBackground(new Color(60, 179, 113));
-        registerButton.setForeground(Color.WHITE);
+        registerButton.setForeground(Color.DARK_GRAY);
         registerButton.setFont(new Font("Arial", Font.BOLD, 14));
+        registerButton.setBorder(BorderFactory.createRaisedBevelBorder());
 
         buttonPanel.add(loginButton);
         buttonPanel.add(registerButton);
@@ -165,7 +167,7 @@ public class LoginPanel extends JPanel {
         titlePanel.setPreferredSize(new Dimension(450, 60));
         JLabel titleLabel = new JLabel("REGISTRO DE USUARIO");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setForeground(Color.DARK_GRAY);
         titlePanel.add(titleLabel);
         registerFrame.add(titlePanel, BorderLayout.NORTH);
 
@@ -210,8 +212,9 @@ public class LoginPanel extends JPanel {
         JButton submitButton = new JButton("Registrarse");
         submitButton.setFocusable(true);
         submitButton.setBackground(new Color(60, 179, 113));
-        submitButton.setForeground(Color.WHITE);
+        submitButton.setForeground(Color.DARK_GRAY);
         submitButton.setFont(new Font("Arial", Font.BOLD, 14));
+        submitButton.setBorder(BorderFactory.createRaisedBevelBorder());
 
         // Panel para botón
         JPanel buttonPanel = new JPanel();

@@ -109,15 +109,16 @@ public class MainFrame extends JFrame {
 
     private void applyVisualImprovements() {
         // Establecer fuentes y colores para mejorar la apariencia
-        UIManager.put("Button.background", new Color(70, 130, 180));
-        UIManager.put("Button.foreground", Color.WHITE);
-        UIManager.put("Button.font", new Font("Arial", Font.BOLD, 12));
+        // IMPORTANTE: No establecer colores globales para botones para evitar conflictos
         UIManager.put("Label.font", new Font("Arial", Font.PLAIN, 12));
         UIManager.put("TextField.font", new Font("Arial", Font.PLAIN, 12));
         UIManager.put("Table.font", new Font("Arial", Font.PLAIN, 12));
         UIManager.put("TableHeader.font", new Font("Arial", Font.BOLD, 12));
         UIManager.put("Menu.font", new Font("Arial", Font.BOLD, 12));
         UIManager.put("MenuItem.font", new Font("Arial", Font.PLAIN, 12));
+
+        // Asegurar que los botones tengan buen contraste
+        UIManager.put("Button.font", new Font("Arial", Font.BOLD, 12));
     }
 
     public void showLoginPanel() {
